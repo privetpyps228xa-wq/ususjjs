@@ -5,13 +5,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: unzip -q BtChess.zip
-            - run: sed -i 's/chesslib:1.3.4/chesslib:1.3.3/' BtChess/app/build.gradle.kts
+      - name: Unzip project
+        run: unzip -q BtChess.zip
+      - name: Fix chesslib version
+        run: |
+          sed -i 's/chesslib:1.3.4/chesslib:1.3.3/' BtChess/app/build.gradle.kts
       - uses: actions/setup-java@v4
-        with: { distribution: temurin, java-version: 17 }
+        with:
+          distribution: temurin
+          java-version: 17
       - uses: gradle/actions/setup-gradle@v4
-        with: { gradle-version: 8.7 }
-      - run: gradle assembleDebug --no-daemon
+        with:
+          gradle-version: 8.7
+      - name: Build
+        run: gradle assembleDebug --no-daemon
         working-directory: BtChess
       - uses: actions/upload-artifact@v4
         with:
