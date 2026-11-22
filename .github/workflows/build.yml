@@ -6,6 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - run: unzip -q BtChess.zip
+            - run: sed -i 's/chesslib:1.3.4/chesslib:1.3.3/' BtChess/app/build.gradle.kts
       - uses: actions/setup-java@v4
         with: { distribution: temurin, java-version: 17 }
       - uses: gradle/actions/setup-gradle@v4
